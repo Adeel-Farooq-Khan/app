@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bp"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="16dp"
+    >
+
+    <Button
+        android:id="@+id/buttonQuestionnaireTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button"
+        android:backgroundTint="@color/black"
+        android:drawableRight="@drawable/social_anxiety"
+        android:text="Behavioral Test"
+        android:textColor="#F4DBC2"
+        android:textColorHighlight="#F4DBC2"
+        android:textColorHint="#F4DBC2"
+        android:textColorLink="#F4DBC2"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/buttonImageTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:backgroundTint="#000000"
+        android:drawableRight="@drawable/ecg_report"
+        android:text="Image Test"
+        android:textColor="#F4DBC2"
+        android:textColorHighlight="#F4DBC2"
+        android:textColorHint="#F4DBC2"
+        android:textColorLink="#F4DBC2"
+        android:textSize="16sp" />
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonEEGTest"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/button"-->
+<!--        android:backgroundTint="#000000"-->
+<!--        android:drawableRight="@drawable/ecg_report"-->
+<!--        android:text="EEG Test"-->
+<!--        android:textColor="#F4DBC2"-->
+<!--        android:textColorHighlight="#F4DBC2"-->
+<!--        android:textColorHint="#F4DBC2"-->
+<!--        android:textColorLink="#F4DBC2"-->
+<!--        android:textSize="16sp" />-->
+
+</LinearLayout>

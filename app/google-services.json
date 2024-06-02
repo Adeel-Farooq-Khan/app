@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270782566615",
+    "project_id": "final-year-project-f2dab",
+    "storage_bucket": "final-year-project-f2dab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270782566615:android:d8096458c997cc7ea76092",
+        "android_client_info": {
+          "package_name": "com.example.finalyearproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg8TMkCkWaeJDlmvvXvw7nuh5RDc_AFPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

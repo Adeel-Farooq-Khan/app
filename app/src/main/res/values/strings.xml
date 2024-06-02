@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Final Year Project</string>
+    <string name="signup_activity_title">Sign Up</string>
+    <string name="login_activity_title">Log Ip</string>
+    <!-- Ethnicity options -->
+    <string-array name="ethnicity_options">
+        <item>Middle Eastern</item>
+        <item>White-European</item>
+        <item>Hispanic</item>
+        <item>Black</item>
+        <item>Asian</item>
+        <item>South Asian</item>
+        <item>Native Indian</item>
+        <item>Others</item>
+        <item>Latino</item>
+        <item>Mixed</item>
+        <item>Pacifica</item>
+    </string-array>
+</resources>

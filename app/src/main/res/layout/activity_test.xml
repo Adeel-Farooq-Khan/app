@@ -1,0 +1,471 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4DBC2"
+    android:padding="16dp"
+    tools:context=".TestActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Question 1 -->
+            <TextView
+                android:id="@+id/question1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Does your child look at you when you call his/her name?"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/option1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+                <RadioButton
+                    android:id="@+id/option1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+                <RadioButton
+                    android:id="@+id/option1_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+                <RadioButton
+                    android:id="@+id/option1_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+
+            <!-- Question 2 -->
+            <TextView
+                android:id="@+id/question2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="2. How easy is it for you to get eye contact with your child?"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/option2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+                <RadioButton
+                    android:id="@+id/option2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+                <RadioButton
+                    android:id="@+id/option2_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+                <RadioButton
+                    android:id="@+id/option2_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+
+            <!-- Question 3 -->
+            <TextView
+                android:id="@+id/question3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options2"
+                android:layout_marginTop="16dp"
+                android:text="3. Does your child point to indicate that s/he wants something? (e.g. a toy that is out of reach)"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question3"
+                android:orientation="vertical">
+
+                <!-- Options for question 3 -->
+                <RadioButton
+                    android:id="@+id/option3_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option3_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option3_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option3_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+            <!-- Question 4 -->
+            <TextView
+                android:id="@+id/question4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options3"
+                android:layout_marginTop="16dp"
+                android:text="4. Does your child point to share interest with you? (e.g. pointing at an interesting sight)"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question4"
+                android:orientation="vertical">
+
+                <!-- Options for question 4 -->
+                <RadioButton
+                    android:id="@+id/option4_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option4_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option4_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option4_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+            <!-- Question 5 -->
+            <TextView
+                android:id="@+id/question5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options4"
+                android:layout_marginTop="16dp"
+                android:text="5. Does your child pretend? (e.g. care for dolls, talk on a toy phone)"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question5"
+                android:orientation="vertical">
+
+                <!-- Options for question 5 -->
+                <RadioButton
+                    android:id="@+id/option5_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option5_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option5_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option5_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+            <!-- Question 6 -->
+            <TextView
+                android:id="@+id/question6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options5"
+                android:layout_marginTop="16dp"
+                android:text="6. Does your child follow where you’re looking?"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question6"
+                android:orientation="vertical">
+
+                <!-- Options for question 6 -->
+                <RadioButton
+                    android:id="@+id/option6_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option6_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option6_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option6_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+            <!-- Question 7 -->
+            <TextView
+                android:id="@+id/question7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options6"
+                android:layout_marginTop="16dp"
+                android:text="7. If you or someone else in the family is visibly upset, does your child show signs of wanting to comfort them? (e.g. stroking hair, hugging them)"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question7"
+                android:orientation="vertical">
+
+                <!-- Options for question 7 -->
+                <RadioButton
+                    android:id="@+id/option7_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option7_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option7_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option7_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+            <!-- Question 8 -->
+            <TextView
+                android:id="@+id/question8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options7"
+                android:layout_marginTop="16dp"
+                android:text="8. Would you describe your child’s first words as:"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question8"
+                android:orientation="vertical">
+
+                <!-- Options for question 8 -->
+                <RadioButton
+                    android:id="@+id/option8_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option8_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option8_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option8_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+            <!-- Question 9 -->
+            <TextView
+                android:id="@+id/question9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/options8"
+                android:layout_marginTop="16dp"
+                android:text="9. Does your child use simple gestures? (e.g. wave goodbye)"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question9"
+                android:orientation="vertical">
+
+                <!-- Options for question 9 -->
+                <RadioButton
+                    android:id="@+id/option9_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+
+                <RadioButton
+                    android:id="@+id/option9_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+
+                <RadioButton
+                    android:id="@+id/option9_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+
+                <RadioButton
+                    android:id="@+id/option9_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+
+            <!-- Question 10 -->
+            <TextView
+                android:id="@+id/question10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="10. Does your child stare at nothing with no apparent purpose?"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/options10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/option10_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="None" />
+                <RadioButton
+                    android:id="@+id/option10_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mild" />
+                <RadioButton
+                    android:id="@+id/option10_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Moderate" />
+                <RadioButton
+                    android:id="@+id/option10_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Severe" />
+            </RadioGroup>
+
+            <!-- Horizontal bar with colors -->
+            <LinearLayout
+                android:id="@+id/color_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_green_dark" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_orange_light" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_orange_dark" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_red_dark" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="36dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="9dp"
+                android:src="@drawable/ic_arrow_down2" />
+
+            <!-- Submit button -->
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="Submit" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

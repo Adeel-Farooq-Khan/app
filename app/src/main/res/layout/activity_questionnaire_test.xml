@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bp"
+    android:padding="16dp"
+    tools:context=".QuestionnaireTestActivity">
+
+    <Button
+        android:id="@+id/enter_date_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button"
+        android:backgroundTint="#000000"
+        android:drawableLeft="@drawable/brain"
+        android:drawableRight="@drawable/brain"
+        android:drawableTint="#E53935"
+        android:hapticFeedbackEnabled="false"
+        android:shadowColor="#F4DBC2"
+        android:text="Select Date of Birth"
+        android:textColor="#F4DBC2"
+        android:textColorHint="#F4DBC2"
+        android:textColorLink="#F4DBC2"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/selected_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@id/enter_date_button"
+        android:layout_marginTop="16dp" />
+
+    <!-- Gender -->
+    <TextView
+        android:id="@+id/textViewGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Gender:"
+        android:textSize="18sp"
+        android:layout_below="@id/selected_date_text"
+        android:layout_marginTop="16dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewGender"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female" />
+    </RadioGroup>
+
+    <!-- Autism -->
+    <TextView
+        android:id="@+id/textViewAutism"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Does Your Another child have autism?"
+        android:textSize="18sp"
+        android:layout_below="@id/radioGroupGender"
+        android:layout_marginTop="16dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupAutism"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewAutism"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/radioButtonNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No" />
+    </RadioGroup>
+
+    <!-- Ethnicity -->
+    <TextView
+        android:id="@+id/textViewEthnicity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Ethnicity:"
+        android:textSize="18sp"
+        android:layout_below="@id/radioGroupAutism"
+        android:layout_marginTop="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerEthnicity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewEthnicity"
+        android:layout_marginTop="8dp"
+        android:entries="@array/ethnicity_options" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_below="@id/spinnerEthnicity"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>

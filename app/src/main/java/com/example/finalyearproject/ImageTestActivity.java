@@ -32,7 +32,7 @@ public class ImageTestActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_PICK = 2;
-    private static final String TAG = "ImageTestActivity";
+    private final String TAG = "ImageTestActivity";
 
     private ImageView imageView;
     private TextView tvResult;

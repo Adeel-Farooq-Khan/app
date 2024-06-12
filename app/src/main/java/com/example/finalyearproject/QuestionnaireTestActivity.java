@@ -15,9 +15,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class QuestionnaireTestActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class QuestionnaireTestActivity extends AppCompatActivity {
     private TextView selectedDateText;
     private String selectedDate;
     private int gender, ethnicity, autism;
+
+    private HashMap<String, Integer> ethnicityMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,21 @@ public class QuestionnaireTestActivity extends AppCompatActivity {
         selectedDateText = findViewById(R.id.selected_date_text);
         submitButton = findViewById(R.id.submit_button);
 
-        // Define the ethnicity options programmatically
+        // Define the ethnicity options and map them to integers
         String[] ethnicityOptions = getResources().getStringArray(R.array.ethnicity_options);
+        ethnicityMap = new HashMap<>();
+        ethnicityMap.put("Middle Eastern", 1);
+        ethnicityMap.put("White European", 2);
+        ethnicityMap.put("Hispanic", 3);
+        ethnicityMap.put("Black", 4);
+        ethnicityMap.put("Asian", 5);
+        ethnicityMap.put("South Asian", 6);
+        ethnicityMap.put("Native Indian", 7);
+        ethnicityMap.put("Others", 8);
+        ethnicityMap.put("Latino", 9);
+        ethnicityMap.put("Mixed", 10);
+        ethnicityMap.put("Pacifica", 11);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ethnicityOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEthnicity.setAdapter(adapter);
@@ -64,9 +81,14 @@ public class QuestionnaireTestActivity extends AppCompatActivity {
                 if (isCriteriaSelected()) {
                     Intent intent = new Intent(QuestionnaireTestActivity.this, TestActivity.class);
                     intent.putExtra("selectedDate", selectedDate);
-                    intent.putExtra("gender", gender);
+                    intent.putExtra("gender", gender);  // Store 1 for Male, 0 for Female
                     intent.putExtra("ethnicity", ethnicity);
-                    intent.putExtra("autism", autism);
+                    intent.putExtra("family_member_with_asd", autism);  // Store 1 for Yes, 0 for No
+                    try {
+                        intent.putExtra("age_months", calculateAgeInMonths(dateFormatter.parse(selectedDate), new Date()));
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                     startActivity(intent);
                 } else {
                     Toast.makeText(QuestionnaireTestActivity.this, "Please select all criteria", Toast.LENGTH_SHORT).show();
@@ -99,7 +121,7 @@ public class QuestionnaireTestActivity extends AppCompatActivity {
         if (spinnerEthnicity.getSelectedItemPosition() == 0) {
             return false;
         } else {
-            ethnicity = spinnerEthnicity.getSelectedItemPosition();
+            ethnicity = ethnicityMap.get(spinnerEthnicity.getSelectedItem().toString());
         }
 
         return true;

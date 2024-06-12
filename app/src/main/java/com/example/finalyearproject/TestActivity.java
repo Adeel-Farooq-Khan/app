@@ -10,19 +10,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 public class TestActivity extends AppCompatActivity {
 
     private static final String TAG = "TestActivity";
+    private static final String BASE_URL = "http://adeelfarooq417.pythonanywhere.com/";
+    private static final int CONNECTION_TIMEOUT = 10000; // 10 seconds
+
     private RadioGroup[] questionGroups = new RadioGroup[10];
     private int[] questionAnswers = new int[10];  // Array to store answers as integers
-    private String dateOfBirth, gender, ethnicity, familyMemberWithASD;
-    private int ageMonths;
+    private String dateOfBirth;
+    private int gender, ethnicity, familyMemberWithASD, ageMonths;
     private TextView resultTextView;
 
     @Override
@@ -30,44 +33,85 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        // Retrieve data from Intent
-        dateOfBirth = getIntent().getStringExtra("date_of_birth");
-        gender = getIntent().getStringExtra("gender");
-        ethnicity = getIntent().getStringExtra("ethnicity");
-        familyMemberWithASD = getIntent().getStringExtra("family_member_with_asd");
-        ageMonths = getIntent().getIntExtra("age_months", 0);
+        try {
+            // Retrieve data from Intent
+            dateOfBirth = getIntent().getStringExtra("selectedDate");
+            gender = getIntent().getIntExtra("gender", -1);
+            ethnicity = getIntent().getIntExtra("ethnicity", -1);
+            familyMemberWithASD = getIntent().getIntExtra("family_member_with_asd", -1);
+            ageMonths = getIntent().getIntExtra("age_months", 0);
 
-        // Initialize RadioGroups
-        questionGroups[0] = findViewById(R.id.options1);
-        questionGroups[1] = findViewById(R.id.options2);
-        questionGroups[2] = findViewById(R.id.options3);
-        questionGroups[3] = findViewById(R.id.options4);
-        questionGroups[4] = findViewById(R.id.options5);
-        questionGroups[5] = findViewById(R.id.options6);
-        questionGroups[6] = findViewById(R.id.options7);
-        questionGroups[7] = findViewById(R.id.options8);
-        questionGroups[8] = findViewById(R.id.options9);
-        questionGroups[9] = findViewById(R.id.options10);
+            // Initialize RadioGroups
+            initializeRadioGroups();
 
-        resultTextView = findViewById(R.id.result_text);
+            resultTextView = findViewById(R.id.result_text);
 
-        Button submitButton = findViewById(R.id.submit_button);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < 10; i++) {
-                    int selectedId = questionGroups[i].getCheckedRadioButtonId();
-                    RadioButton selectedRadioButton = findViewById(selectedId);
-                    if (selectedRadioButton != null) {
-                        String answerText = selectedRadioButton.getText().toString();
-                        questionAnswers[i] = mapAnswerToValue(answerText);
-                    } else {
-                        questionAnswers[i] = 0; // Default value if no selection
+            Button submitButton = findViewById(R.id.submit_button);
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        collectAnswers();
+                        sendDataToApi();
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error in onClick: " + e.getMessage(), e);
+                        Toast.makeText(TestActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-                sendDataToApi();
+            });
+        } catch (Exception e) {
+            Log.e(TAG, "Error in onCreate: " + e.getMessage(), e);
+            Toast.makeText(TestActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void initializeRadioGroups() {
+        try {
+            questionGroups[0] = findViewById(R.id.options1);
+            questionGroups[1] = findViewById(R.id.options2);
+            questionGroups[2] = findViewById(R.id.options3);
+            questionGroups[3] = findViewById(R.id.options4);
+            questionGroups[4] = findViewById(R.id.options5);
+            questionGroups[5] = findViewById(R.id.options6);
+            questionGroups[6] = findViewById(R.id.options7);
+            questionGroups[7] = findViewById(R.id.options8);
+            questionGroups[8] = findViewById(R.id.options9);
+            questionGroups[9] = findViewById(R.id.options10);
+
+            for (RadioGroup group : questionGroups) {
+                group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        try {
+                            collectAnswers();
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error in onCheckedChanged: " + e.getMessage(), e);
+                            Toast.makeText(TestActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
-        });
+        } catch (Exception e) {
+            Log.e(TAG, "Error in initializeRadioGroups: " + e.getMessage(), e);
+            Toast.makeText(TestActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void collectAnswers() {
+        try {
+            for (int i = 0; i < questionGroups.length; i++) {
+                int selectedId = questionGroups[i].getCheckedRadioButtonId();
+                RadioButton selectedRadioButton = findViewById(selectedId);
+                if (selectedRadioButton != null) {
+                    questionAnswers[i] = mapAnswerToValue(selectedRadioButton.getText().toString());
+                } else {
+                    questionAnswers[i] = 0; // Default value if no answer is selected
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error in collectAnswers: " + e.getMessage(), e);
+            Toast.makeText(TestActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private int mapAnswerToValue(String answerText) {
@@ -93,13 +137,9 @@ public class TestActivity extends AppCompatActivity {
                 try {
                     // Ensure all values are non-null before encoding
                     dateOfBirth = dateOfBirth != null ? dateOfBirth : "";
-                    gender = gender != null ? gender : "";
-                    ethnicity = ethnicity != null ? ethnicity : "";
-                    familyMemberWithASD = familyMemberWithASD != null ? familyMemberWithASD : "";
 
                     // Construct the URL with query parameters
-                    String baseUrl = "http://adeelfarooq417.pythonanywhere.com/";
-                    StringBuilder urlBuilder = new StringBuilder(baseUrl);
+                    StringBuilder urlBuilder = new StringBuilder(BASE_URL);
                     urlBuilder.append("?A1=").append(questionAnswers[0])
                             .append("&A2=").append(questionAnswers[1])
                             .append("&A3=").append(questionAnswers[2])
@@ -111,9 +151,9 @@ public class TestActivity extends AppCompatActivity {
                             .append("&A9=").append(questionAnswers[8])
                             .append("&A10=").append(questionAnswers[9])
                             .append("&Age_Mons=").append(ageMonths)
-                            .append("&Sex=").append(URLEncoder.encode(gender, "UTF-8"))
-                            .append("&Ethnicity=").append(URLEncoder.encode(ethnicity, "UTF-8"))
-                            .append("&Family_mem_with_ASD=").append(URLEncoder.encode(familyMemberWithASD, "UTF-8"));
+                            .append("&Sex=").append(gender)
+                            .append("&Ethnicity=").append(ethnicity)
+                            .append("&Family_mem_with_ASD=").append(familyMemberWithASD);
 
                     Log.d(TAG, "Request URL: " + urlBuilder.toString());
 
@@ -121,8 +161,8 @@ public class TestActivity extends AppCompatActivity {
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
                     conn.setRequestProperty("Accept", "application/json");
-                    conn.setConnectTimeout(10000); // 10 seconds
-                    conn.setReadTimeout(10000); // 10 seconds
+                    conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                    conn.setReadTimeout(CONNECTION_TIMEOUT);
 
                     int responseCode = conn.getResponseCode();
                     String responseMessage = conn.getResponseMessage();
@@ -130,49 +170,14 @@ public class TestActivity extends AppCompatActivity {
                     Log.d(TAG, "Response Message: " + responseMessage);
 
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        InputStream inputStream = conn.getInputStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                        StringBuilder responseBuilder = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            responseBuilder.append(line);
-                        }
-                        reader.close();
-                        final String response = responseBuilder.toString();
-                        Log.d(TAG, "Response Body: " + response);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                displayResult(response);
-                            }
-                        });
+                        handleApiResponse(conn);
                     } else {
-                        InputStream errorStream = conn.getErrorStream();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
-                        StringBuilder errorBuilder = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            errorBuilder.append(line);
-                        }
-                        reader.close();
-                        Log.e(TAG, "Error Response: " + errorBuilder.toString());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(TestActivity.this, "Error in data submission: " + responseCode + " " + responseMessage + "\n" + errorBuilder.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        });
+                        handleApiError(conn, responseCode, responseMessage);
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "Error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(TestActivity.this, "An error occurred: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    Log.e(TAG, "Error in sendDataToApi: " + e.getMessage(), e);
+                    showToast("An error occurred: " + e.getMessage());
                 } finally {
                     if (conn != null) {
                         conn.disconnect();
@@ -180,6 +185,63 @@ public class TestActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private void handleApiResponse(HttpURLConnection conn) throws Exception {
+        InputStream inputStream = conn.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuilder responseBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            responseBuilder.append(line);
+        }
+        reader.close();
+        final String response = responseBuilder.toString();
+        Log.d(TAG, "Response Body: " + response);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                displayResult(response);
+            }
+        });
+    }
+
+    private void handleApiError(HttpURLConnection conn, int responseCode, String responseMessage) {
+        try {
+            InputStream errorStream = conn.getErrorStream();
+            if (errorStream != null) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream));
+                StringBuilder errorBuilder = new StringBuilder();
+                String line;
+                while (true) {
+                    try {
+                        if (!((line = reader.readLine()) != null)) break;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    errorBuilder.append(line);
+                }
+                reader.close();
+                Log.e(TAG, "Error Response: " + errorBuilder.toString());
+                showToast("Error in data submission: " + responseCode + " " + responseMessage + "\n" + errorBuilder.toString());
+            } else {
+                Log.e(TAG, "Error Response: " + responseCode + " " + responseMessage);
+                showToast("Error in data submission: " + responseCode + " " + responseMessage);
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error handling API error response: " + e.getMessage(), e);
+            showToast("An error occurred while handling API error response: " + e.getMessage());
+        }
+    }
+
+
+    private void showToast(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(TestActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void displayResult(String response) {
@@ -197,7 +259,7 @@ public class TestActivity extends AppCompatActivity {
             }
             resultTextView.setText(result);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid response from server", Toast.LENGTH_LONG).show();
+            showToast("Invalid response from server");
         }
     }
 }

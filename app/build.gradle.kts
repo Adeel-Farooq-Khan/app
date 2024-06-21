@@ -47,6 +47,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("org.tensorflow:tensorflow-lite:2.3.0")
     implementation ("org.tensorflow:tensorflow-lite-support:0.1.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+
 
 
 }
